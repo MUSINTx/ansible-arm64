@@ -1,0 +1,11 @@
+---
+collections:
+  - ansible.posix
+  - community.docker
+  - community.general
+  - community.sops
+
+roles:
+  - geerlingguy.docker
+  - geerlingguy.git
+

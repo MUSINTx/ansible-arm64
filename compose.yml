@@ -1,0 +1,15 @@
+services:
+  ansible:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ${PWD}/../ansible:/ansible
+      - ${HOME}/.config/sops/age/keys.txt:/home/ansible/.config/sops/age/keys.txt:ro
+    working_dir: /ansible
+    environment:
+      - ANSIBLE_CONFIG=/ansible/ansible.cfg
+    env_file:
+      - .env
+    stdin_open: true
+    tty: true

@@ -1,0 +1,41 @@
+version: "3"
+
+vars:
+  DOCKER_COMPOSE_CMD: docker compose
+  ANSIBLE_SERVICE: ansible
+
+tasks:
+  build:
+    desc: Build the Ansible Docker image
+    cmds:
+      - "{{.DOCKER_COMPOSE_CMD}} build"
+
+  up:
+    desc: Start and Run a container
+    cmds:
+      - "{{.DOCKER_COMPOSE_CMD}} up -d"
+
+  down:
+    desc: Stop running container
+    cmds:
+      - "{{.DOCKER_COMPOSE_CMD}} down --remove-orphans"
+
+  version:
+    desc: Check Ansible version
+    cmds:
+      - "{{.DOCKER_COMPOSE_CMD}} run --rm {{.ANSIBLE_SERVICE}} ansible --version"
+
+  shell:
+    desc: Open an interactive shell in the Ansible container
+    cmds:
+      - "{{.DOCKER_COMPOSE_CMD}} run --rm {{.ANSIBLE_SERVICE}} /bin/bash"
+
+  clean:
+    desc: Remove all containers and images
+    cmds:
+      - "{{.DOCKER_COMPOSE_CMD}} down --rmi all"
+
+  config:
+    desc: Ansible config dump
+    cmds:
+      - "{{.DOCKER_COMPOSE_CMD}} run {{.ANSIBLE_SERVICE}} ansible-config dump"
